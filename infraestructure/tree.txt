@@ -1,0 +1,30 @@
+├───api-gateway
+├───domains
+│   ├───administration
+│   │   ├───ad-acess-monitoring-service
+│   │   ├───ad-audit-access-report-service
+│   │   ├───ad-service-manager
+│   │   ├───ad-system-config-service
+│   │   └───ad-user-rol-service
+│   ├───auditlogs-backoffice
+│   │   ├───ab-auditlog-service
+│   │   ├───ab-proforma-calculator-service
+│   │   ├───ab-proforma-pdf-service
+│   │   └───ab-report-generator-service
+│   ├───customers
+│   │   ├───cu-contact-admin-service
+│   │   ├───cu-customer-profile-service
+│   │   ├───cu-geolocation-service
+│   │   └───cu-proforma-request-service
+│   ├───datamanagement
+│   │   ├───db-admin-backup-service
+│   │   ├───db-customer-backup-service
+│   │   ├───db-database-registry-service
+│   │   └───db-product-backup-service
+│   └───products
+│       ├───pr-category-service
+│       ├───pr-product-catalog-service
+│       ├───pr-product-media-service
+│       └───pr-product-search-service
+├───frontend
+└───infraestructure
