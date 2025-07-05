@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import userRouter from './routes/createProductRouter.js';
+import createProduct from './routes/createProductRouter.js';
 import morgan from 'morgan'
 import { createProduct } from './controllers/CreateProductsController.js';
 //import swaggerUi from 'swagger-ui-express';
