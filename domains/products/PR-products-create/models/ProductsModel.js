@@ -1,4 +1,4 @@
-import { connectDB } from '../../../config/postgredb.js';
+import { connectDB } from '../config/postgredb.js';
 
 const registerProduct = async (id, name, imageUrl, createdAt) => {
   try {

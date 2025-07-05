@@ -1,15 +1,16 @@
 {
+  
   "name": "pr-products-create",
   "version": "1.0.0",
   "description": "",
   "main": "createProduct.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "nodemon  server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "dependencies": {
     "body-parser": "^2.2.0",
     "cookie-parser": "^1.4.7",
