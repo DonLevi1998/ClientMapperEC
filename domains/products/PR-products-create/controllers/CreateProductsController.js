@@ -1,21 +1,19 @@
-import { connectDB } from '../config/postgredb.js';
+import { registerProduct } from '../models/ProductsModel.js';
 
-const registerUser = async (name, lastname, email) => {
+const createProduct = async (req, res) => {
+  const { id, name, imageUrl } = req.body;
   try {
-    const query = `
-      INSERT INTO users_db (name, lastname, email)
-      VALUES ($1, $2, $3)
-      RETURNING *;
-    `;
-    const values = [name, lastname, email];
+    if (!id || !name || !imageUrl) {
+      return res.status(400).json({ message: 'All fields are required: id, name, imageUrl' });
+    }
 
-    const result = await connectDB.query(query, values);
-
-    return result.rows[0]; // Returns the registered user
-  } catch (error) {
-    console.error('Error registering user:', error);
-    throw error;
+    const createdAt = new Date();
+    const newProduct = await registerProduct(id, name, imageUrl, createdAt);
+    res.status(201).json(newProduct);
+  } catch (err) {
+    console.error('Error creating product', err);
+    res.status(500).json({ message: 'Error creating product' });
   }
 };
 
-export { registerUser };
+export { createProduct };
