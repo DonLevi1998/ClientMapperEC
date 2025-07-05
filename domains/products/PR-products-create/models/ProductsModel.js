@@ -1,13 +1,13 @@
 import { connectDB } from '../config/postgredb.js';
 
-const registerProduct = async (id, name, imageUrl, createdAt) => {
+const registerProduct = async (name, description) => {
   try {
     const query = `
-      INSERT INTO products (id, name, imageUrl, createdAt)
-      VALUES ($1, $2, $3, $4)
+      INSERT INTO products (name, description)
+      VALUES ($1, $2)
       RETURNING *;
     `;
-    const values = [id, name, imageUrl, createdAt];
+    const values = [name, description];
 
     const result = await connectDB.query(query, values);
 

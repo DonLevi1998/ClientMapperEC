@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import createProduct from './routes/createProductRouter.js';
+import createProductRouter from './routes/createProductRouter.js';
 import morgan from 'morgan'
 
 //import swaggerUi from 'swagger-ui-express';
@@ -30,7 +30,7 @@ app.post('/', (req, res) => {
   res.send('Welcome to the Products Microservice');
 });
 
-app.post('/api/products', createProduct);
+app.use('/api/products', createProductRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

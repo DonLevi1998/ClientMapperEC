@@ -1,14 +1,14 @@
 import { registerProduct } from '../models/ProductsModel.js';
 
 const createProduct = async (req, res) => {
-  const { id, name, imageUrl } = req.body;
+  const { name, description } = req.body;
+
   try {
-    if (!id || !name || !imageUrl) {
-      return res.status(400).json({ message: 'All fields are required: id, name, imageUrl' });
+    if (!name || !description) {
+      return res.status(400).json({ message: 'Both name and description are required' });
     }
 
-    const createdAt = new Date();
-    const newProduct = await registerProduct(id, name, imageUrl, createdAt);
+    const newProduct = await registerProduct(name, description);
     res.status(201).json(newProduct);
   } catch (err) {
     console.error('Error creating product', err);
