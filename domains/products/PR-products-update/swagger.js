@@ -1,14 +1,14 @@
 import swaggerAutogen from 'swagger-autogen';
 
 const outputFile = './swagger.json';
-const endpointsFiles = ['./routes/listProductsRouter.js'];
+const endpointsFiles = ['./routes/updateProductRouter.js'];
 
 const doc = {
     info: {
-        title: 'Products Read API',
-        description: 'API for listing products',
+        title: 'Products Update API',
+        description: 'API for updating products',
     },
-    host: 'localhost:5002',
+    host: 'localhost:5003',
     schemes: ['http', 'https'],
 };
 

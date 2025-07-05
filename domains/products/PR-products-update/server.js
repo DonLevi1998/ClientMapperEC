@@ -1,13 +1,13 @@
 import express from 'express';
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import listProductsRouter from './routes/listProductsRouter.js';
+import updateProductRouter from './routes/updateProductRouter.js';
 import morgan from 'morgan';
 //import swaggerUi from 'swagger-ui-express';
 //import swaggerDocument from './swagger.json' assert { type: "json" };
 
 const app = express();
-const PORT = 5002;
+const PORT = 5003;
 
 const corsOptions = {
   origin: "http://localhost:5173",
@@ -24,10 +24,10 @@ app.use(cookieParser());
 //app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.get('/', (req, res) => {
-  res.send('Welcome to the Products Read Microservice');
+  res.send('Welcome to the Products Update Microservice');
 });
 
-app.use('/api/products', listProductsRouter);
+app.use('/api/products', updateProductRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
