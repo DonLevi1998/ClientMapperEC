@@ -2,6 +2,7 @@ import express from 'express';
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import listProductsRouter from './routes/listProductsRouter.js';
+import getProductByIdRouter from './routes/getProductByIdRouter.js';
 import morgan from 'morgan';
 //import swaggerUi from 'swagger-ui-express';
 //import swaggerDocument from './swagger.json' assert { type: "json" };
@@ -28,6 +29,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/products', listProductsRouter);
+app.use('/api/products', getProductByIdRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
