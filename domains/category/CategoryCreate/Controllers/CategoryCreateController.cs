@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using CaCategoryCreate.DTOs;
-using CaCategoryCreate.Data;
+using CategoryCreate.DTOs;
+using CategoryCreate.Data;
 
-namespace CaCategoryCreate.Controllers
+namespace CategoryCreate.Controllers
 {
     [ApiController]
     [Route("api/category")]

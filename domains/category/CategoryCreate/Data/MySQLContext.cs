@@ -1,7 +1,7 @@
 using System.Data;
 using MySql.Data.MySqlClient;
 
-namespace CaCategoryCreate.Data
+namespace CategoryCreate.Data
 {
     public class MySQLContext
     {

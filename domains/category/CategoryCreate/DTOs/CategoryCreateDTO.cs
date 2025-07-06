@@ -1,4 +1,4 @@
-namespace CaCategoryCreate.DTOs
+namespace CategoryCreate.DTOs
 {
     public class CategoryCreateDTO
     {

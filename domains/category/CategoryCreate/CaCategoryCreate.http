@@ -1,6 +1,0 @@
-@CaCategoryCreate_HostAddress = http://localhost:5033
-
-GET {{CaCategoryCreate_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

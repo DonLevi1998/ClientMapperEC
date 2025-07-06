@@ -1,4 +1,4 @@
-namespace CaCategoryCreate.Models
+namespace CategoryCreate.Models
 {
     public class Category
     {
