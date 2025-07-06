@@ -1,5 +1,5 @@
-using MySql.Data.MySqlClient;
 using CategoryFindList.Models;
+using MySql.Data.MySqlClient;
 
 namespace CategoryFindList.Data
 {
@@ -26,13 +26,17 @@ namespace CategoryFindList.Data
 
             while (await reader.ReadAsync())
             {
-                categories.Add(new Category
-                {
-                    IdCategory = reader.GetInt32("idcategory"),
-                    NameCategory = reader.GetString("namecategory"),
-                    DescriptionCategory = reader.IsDBNull("descriptioncategory") ? null : reader.GetString("descriptioncategory"),
-                    DateCreation = reader.GetDateTime("datecreation")
-                });
+                categories.Add(
+                    new Category
+                    {
+                        IdCategory = reader.GetInt32(reader.GetOrdinal("idcategory")),
+                        NameCategory = reader.GetString(reader.GetOrdinal("namecategory")),
+                        DescriptionCategory = reader.IsDBNull(reader.GetOrdinal("descriptioncategory"))
+                            ? null
+                            : reader.GetString(reader.GetOrdinal("descriptioncategory")),
+                        DateCreation = reader.GetDateTime(reader.GetOrdinal("datecreation")),
+                    }
+                );
             }
 
             return categories;
@@ -54,10 +58,12 @@ namespace CategoryFindList.Data
             {
                 return new Category
                 {
-                    IdCategory = reader.GetInt32("idcategory"),
-                    NameCategory = reader.GetString("namecategory"),
-                    DescriptionCategory = reader.IsDBNull("descriptioncategory") ? null : reader.GetString("descriptioncategory"),
-                    DateCreation = reader.GetDateTime("datecreation")
+                    IdCategory = reader.GetInt32(reader.GetOrdinal("idcategory")),
+                    NameCategory = reader.GetString(reader.GetOrdinal("namecategory")),
+                    DescriptionCategory = reader.IsDBNull(reader.GetOrdinal("descriptioncategory"))
+                        ? null
+                        : reader.GetString(reader.GetOrdinal("descriptioncategory")),
+                    DateCreation = reader.GetDateTime(reader.GetOrdinal("datecreation")),
                 };
             }
 

@@ -27,12 +27,12 @@ namespace CategoryFindList.Models
             {
                 return new Category
                 {
-                    IdCategory = reader.GetInt32("idcategory"),
-                    NameCategory = reader.GetString("namecategory"),
-                    DescriptionCategory = reader.IsDBNull("descriptioncategory")
+                    IdCategory = reader.GetInt32(reader.GetOrdinal("idcategory")),
+                    NameCategory = reader.GetString(reader.GetOrdinal("namecategory")),
+                    DescriptionCategory = reader.IsDBNull(reader.GetOrdinal("descriptioncategory"))
                         ? null
-                        : reader.GetString("descriptioncategory"),
-                    DateCreation = reader.GetDateTime("datecreation"),
+                        : reader.GetString(reader.GetOrdinal("descriptioncategory")),
+                    DateCreation = reader.GetDateTime(reader.GetOrdinal("datecreation")),
                 };
             }
 
