@@ -1,4 +1,4 @@
-using CaCategoryCreate.Data;
+using CategoryCreate.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
