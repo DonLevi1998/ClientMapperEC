@@ -1,6 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
-using CategoryCreate.DTOs;
 using CategoryCreate.Data;
+using CategoryCreate.DTOs;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CategoryCreate.Controllers
 {
@@ -23,7 +23,10 @@ namespace CategoryCreate.Controllers
 
             try
             {
-                var result = await _context.CreateCategoryAsync(dto.NameCategory, dto.DescriptionCategory);
+                var result = await _context.CreateCategoryAsync(
+                    dto.NameCategory,
+                    dto.DescriptionCategory
+                );
                 return Created("", new { message = "Category created successfully." });
             }
             catch (Exception ex)
