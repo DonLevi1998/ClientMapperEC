@@ -1,0 +1,40 @@
+services:
+  users-create:
+    build:
+      context: ./US-users-create
+      dockerfile: Dockerfile
+    ports:
+      - "5020:5020"
+    env_file:
+      - ./US-users-create/.env
+    restart: unless-stopped
+
+  users-delete:
+    build:
+      context: ./US-users-delete
+      dockerfile: Dockerfile
+    ports:
+      - "5021:5021"
+    env_file:
+      - ./US-users-delete/.env
+    restart: unless-stopped
+
+  users-list-find:
+    build:
+      context: ./US-users-list-find
+      dockerfile: Dockerfile
+    ports:
+      - "5022:5022"
+    env_file:
+      - ./US-users-list-find/.env
+    restart: unless-stopped
+
+  users-update:
+    build:
+      context: ./US-users-update
+      dockerfile: Dockerfile
+    ports:
+      - "5023:5023"
+    env_file:
+      - ./US-users-update/.env
+    restart: unless-stopped
