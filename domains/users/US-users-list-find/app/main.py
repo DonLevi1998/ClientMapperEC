@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
-from . import models, schemas
-from .database import SessionLocal, engine, Base
+from app import models, schemas
+from app.database import SessionLocal, engine, Base
 from typing import List
 
 app = FastAPI()
@@ -16,8 +16,8 @@ def get_db():
         db.close()
 
 @app.get("/users/", response_model=List[schemas.UserOut])
-def list_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    users = db.query(models.User).offset(skip).limit(limit).all()
+def list_users(db: Session = Depends(get_db)):
+    users = db.query(models.User).all()
     return users
 
 @app.get("/users/{user_id}", response_model=schemas.UserOut)

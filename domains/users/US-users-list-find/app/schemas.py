@@ -1,11 +1,11 @@
 from pydantic import BaseModel, EmailStr
 from typing import Optional
 
-class UserUpdate(BaseModel):
-    name: Optional[str] = None
-    email: Optional[EmailStr] = None
+class UserCreate(BaseModel):
+    name: str
+    email: EmailStr
     telephone: Optional[str] = None
-    password: Optional[str] = None
+    password: str
     address: Optional[str] = None
 
 class UserOut(BaseModel):
@@ -16,4 +16,4 @@ class UserOut(BaseModel):
     address: Optional[str] = None
 
     class Config:
-        from_attributes = True
+        orm_mode = True
