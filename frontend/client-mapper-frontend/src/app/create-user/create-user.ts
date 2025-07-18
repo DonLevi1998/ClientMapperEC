@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-create-user',
   imports: [FormsModule, CommonModule],
   templateUrl: './create-user.component.html',
-  styleUrl: './create-user.css'
+  styleUrls: ['./create-user.component.css']
 })
 export class CreateUser {
   user: User = {
