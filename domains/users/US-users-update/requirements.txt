@@ -4,4 +4,3 @@ sqlalchemy
 pymysql
 python-dotenv
 email-validator
-flask-cors
