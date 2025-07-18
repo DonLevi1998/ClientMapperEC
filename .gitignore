@@ -26,3 +26,5 @@ bin/
 .vscode/
 .idea/
 *.log
+ClientMapperEC.sln
+*.swp
