@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Depends, HTTPException
+import requests
 from sqlalchemy.orm import Session
 from . import models, schemas
 from .database import SessionLocal, engine, Base
@@ -27,7 +28,16 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.email == user.email).first()
     if db_user:
         raise HTTPException(status_code=400, detail="Email already registered")
-    new_user = models.User(**user.dict())
+    # Microservice auth-hash
+    response = requests.post("http://auth-hash:5031/hash", json={"password": user.password})
+    if response.status_code != 200:
+        raise HTTPException(status_code=500, detail="Error hashing password")
+    hashed_password = response.json()["hash"]
+
+    # Create user with hash password
+    user_data = user.dict()
+    user_data["password"] = hashed_password
+    new_user = models.User(**user_data)
     db.add(new_user)
     db.commit()
     db.refresh(new_user)

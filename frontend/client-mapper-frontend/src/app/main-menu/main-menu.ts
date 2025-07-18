@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-main-menu',
   imports: [],
   templateUrl: './main-menu.component.html',
-  styleUrl: './main-menu.css'
+  styleUrl: './main-menu.component.css'
 })
 export class MainMenu {
 

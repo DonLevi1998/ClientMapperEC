@@ -1,0 +1,41 @@
+version: '3.8'
+services:
+  auth-hash:
+    build:
+      context: ./auth-hash
+      dockerfile: Dockerfile
+    container_name: auth-hash
+    ports:
+      - "5031:5031"
+    env_file:
+      - ./auth-hash/.env
+
+  auth-login:
+    build:
+      context: ./auth-login
+      dockerfile: Dockerfile
+    container_name: auth-login
+    ports:
+      - "5030:5030"
+    env_file:
+      - ./auth-login/.env
+
+  auth-register:
+    build:
+      context: ./auth-register
+      dockerfile: Dockerfile
+    container_name: auth-register
+    ports:
+      - "5032:5032"
+    env_file:
+      - ./auth-register/.env
+
+  auth-token:
+    build:
+      context: ./auth-token
+      dockerfile: Dockerfile
+    container_name: auth-token
+    ports:
+      - "5033:5033"
+    env_file:
+      - ./auth-token/.env
