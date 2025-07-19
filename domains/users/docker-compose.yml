@@ -1,5 +1,6 @@
 services:
   users-create:
+    image: leviathan119/users-users-create:latest
     build:
       context: ./US-users-create
       dockerfile: Dockerfile
@@ -10,6 +11,7 @@ services:
     restart: unless-stopped
 
   users-delete:
+    image: leviathan119/users-users-delete:latest
     build:
       context: ./US-users-delete
       dockerfile: Dockerfile
@@ -20,6 +22,7 @@ services:
     restart: unless-stopped
 
   users-list-find:
+    image: leviathan119/users-users-list-find:latest
     build:
       context: ./US-users-list-find
       dockerfile: Dockerfile
@@ -30,6 +33,7 @@ services:
     restart: unless-stopped
 
   users-update:
+    image: leviathan119/users-users-update:latest
     build:
       context: ./US-users-update
       dockerfile: Dockerfile

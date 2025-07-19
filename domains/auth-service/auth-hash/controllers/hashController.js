@@ -1,11 +1,12 @@
 const { hashPassword } = require('../utils/hash');
-const userModel = require('../models/userModel');
 
 exports.hashPasswordEndpoint = async (req, res) => {
-  const { email, password } = req.body;
-  if (!email || !password) return res.status(400).json({ message: 'Email and password required' });
-  const hash = await hashPassword(password);
-  // Save user with hash password
-  const user = await userModel.create({ email, password: hash });
-  res.status(201).json({ id: user.id, email: user.email });
+  const { password } = req.body;
+  if (!password) return res.status(400).json({ message: 'Password required' });
+  try {
+    const hash = await hashPassword(password);
+    res.status(200).json({ hash });
+  } catch (error) {
+    res.status(500).json({ message: 'Error hashing password' });
+  }
 };

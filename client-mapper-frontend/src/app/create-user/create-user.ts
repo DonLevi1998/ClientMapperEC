@@ -3,6 +3,7 @@ import { User } from './user.interface';
 import { LocalApiUsers } from '../../enviroments/enviroments';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-user',
@@ -18,6 +19,7 @@ export class CreateUser {
     password: '',
     address: ''
   };
+  constructor(private router: Router) {}
   confirmPassword: string = '';
   errorMessage: string = '';
 
@@ -49,5 +51,8 @@ export class CreateUser {
     } catch (error) {
       this.errorMessage = 'Error connecting to the server.';
     }
+  }
+  goToLogin() {
+    this.router.navigate(['/login']);
   }
 }
