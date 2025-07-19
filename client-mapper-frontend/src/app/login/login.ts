@@ -22,7 +22,7 @@ export class Login {
       this.errorMessage = 'All fields are required.';
       return;
     }
-    this.errorMessage = '';
+    this.errorMessage = ''; 
     try {
       const response = await fetch('http://localhost:5030/login', {
         method: 'POST',

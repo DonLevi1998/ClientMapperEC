@@ -7,17 +7,17 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Endpoint para verificar el rol de un usuario
+// Endpoint from verify user role
 app.post('/check-role', async (req, res) => {
     const { userIdOrUsername } = req.body;
     try {
         const rol = await checkUserRole(userIdOrUsername);
         if (rol === null) {
-            return res.status(404).json({ error: 'Usuario no encontrado' });
+            return res.status(404).json({ error: 'User not found' });
         }
         res.json({ rol });
     } catch (err) {
-        res.status(500).json({ error: 'Error interno del servidor' });
+        res.status(500).json({ error: 'Error from server' });
     }
 });
 
