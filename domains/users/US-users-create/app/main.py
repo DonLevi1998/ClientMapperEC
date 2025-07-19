@@ -29,7 +29,7 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     if db_user:
         raise HTTPException(status_code=400, detail="Email already registered")
     # Microservice auth-hash
-    response = requests.post("http://auth-hash:5031/hash", json={"password": user.password})
+    response = requests.post("http://auth-hash:5031/hash-password", json={"password": user.password})
     if response.status_code != 200:
         raise HTTPException(status_code=500, detail="Error hashing password")
     hashed_password = response.json()["hash"]

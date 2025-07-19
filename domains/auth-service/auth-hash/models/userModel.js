@@ -5,10 +5,13 @@ const pool = mysql.createPool({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  port: process.env.DB_PORT,
+  port: process.env.DB_PORT
 });
 
 exports.create = async ({ email, password }) => {
-  const [result] = await pool.execute('INSERT INTO users (email, password) VALUES (?, ?)', [email, password]);
+  const [result] = await pool.execute(
+    'INSERT INTO users (email, password, name) VALUES (?, ?, ?)', 
+    [email, password, '']
+  );
   return { id: result.insertId, email, password };
 };

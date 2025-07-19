@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from . import models, schemas
 from .database import SessionLocal, engine, Base
 from fastapi.middleware.cors import CORSMiddleware
-
+import os
 app = FastAPI()
 
 app.add_middleware(
@@ -32,7 +32,7 @@ def update_user(user_id: int, user: schemas.UserUpdate, db: Session = Depends(ge
         if value is not None:
             # Si el campo es password, hashearlo antes de guardar
             if var == "password":
-                response = requests.post(os.getenv("AUTH_HASH_URL", "http://auth-hash:5040/hash"), json={"password": value})
+                response = requests.post(os.getenv("AUTH_HASH_URL", "http://auth-hash:5031/hash-password"), json={"password": value})
                 if response.status_code != 200:
                     raise HTTPException(status_code=500, detail="Error hashing password")
                 value = response.json()["hash"]
