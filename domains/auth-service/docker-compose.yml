@@ -19,15 +19,15 @@ services:
     env_file:
       - ./auth-login/.env
 
-  auth-register:
+  auth-rol:
     build:
-      context: ./auth-register
+      context: ./auth-rol
       dockerfile: Dockerfile
-    container_name: auth-register
+    container_name: auth-rol
     ports:
       - "5032:5032"
     env_file:
-      - ./auth-register/.env
+      - ./auth-rol/.env
 
   auth-token:
     build:
