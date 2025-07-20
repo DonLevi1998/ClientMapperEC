@@ -1,10 +1,106 @@
 <div class="admin-layout">
   <aside class="sidebar">
-    <button routerLink="/admin-menu/users" routerLinkActive="active">Users</button>
-    <!-- <button routerLink="products" routerLinkActive="active">Products</button>
-    <button routerLink="category" routerLinkActive="active">Category</button> -->
+    <button (click)="openModal()">Agregar Usuario</button>
+    <button (click)="loadUsers()">Recargar Usuarios</button>
   </aside>
   <main class="admin-content">
-    <router-outlet></router-outlet>
+    <h2>User Management</h2>
+    <div *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</div>
+    <div *ngIf="successMessage" style="color: green;">{{ successMessage }}</div>
+    <table *ngIf="users.length > 0" border="1" cellpadding="8" cellspacing="0" style="width:100%; margin-bottom: 2rem;">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Address</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.telephone }}</td>
+          <td>{{ user.address }}</td>
+          <td>
+            <button (click)="openEditModal(user)">Edit</button>
+            <button (click)="deleteUser(user.idusers)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="users.length === 0">There are no registered users.</div>
+
+    <!-- Modal Add user -->
+    <div *ngIf="showModal" class="modal-overlay">
+      <div class="modal-content">
+        <h3>Add User</h3>
+        <form (ngSubmit)="addUser()">
+          <label>Name:<br>
+            <input [(ngModel)]="newUser.name" name="name" required />
+          </label><br>
+          <label>Email:<br>
+            <input [(ngModel)]="newUser.email" name="email" required />
+          </label><br>
+          <label>Phone:<br>
+            <input [(ngModel)]="newUser.telephone" name="telephone" required />
+          </label><br>
+          <label>Address:<br>
+            <input [(ngModel)]="newUser.address" name="address" required />
+          </label><br>
+          <label>Password:<br>
+            <input [(ngModel)]="newUser.password" name="password" type="password" required />
+          </label><br><br>
+          <button type="submit">Add</button>
+          <button type="button" (click)="closeModal()">Calcel</button>
+        </form>
+        <div *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</div>
+      </div>
+    </div>
+
+    <!-- Modal edit user -->
+    <div *ngIf="showEditModal && editUserData" class="modal-overlay">
+      <div class="modal-content">
+        <h3>Edit User</h3>
+        <form (ngSubmit)="updateUser()">
+          <label>Namen:<br>
+            <input [(ngModel)]="editUserData.name" name="editName" required />
+          </label><br>
+          <label>Email:<br>
+            <input [(ngModel)]="editUserData.email" name="editEmail" required />
+          </label><br>
+          <label>Phone:<br>
+            <input [(ngModel)]="editUserData.telephone" name="editTelephone" required />
+          </label><br>
+          <label>Address:<br>
+            <input [(ngModel)]="editUserData.address" name="editAddress" required />
+          </label><br>
+          <button type="submit">Save</button>
+          <button type="button" (click)="closeEditModal()">Calcel</button>
+        </form>
+        <div *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</div>
+      </div>
+    </div>
   </main>
 </div>
+
+<!-- Styles -->
+<style>
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.modal-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  min-width: 320px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.2);
+}
+</style>
