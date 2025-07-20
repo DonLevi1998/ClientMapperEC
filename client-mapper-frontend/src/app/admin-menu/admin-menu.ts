@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-admin-menu',
-  imports: [],
+  standalone: true,
+  imports: [RouterModule],
   templateUrl: './admin-menu.html',
-  styleUrl: './admin-menu.css'
+  styleUrls: ['./admin-menu.css']
 })
 export class AdminMenu {
-
+  constructor() {}
 }

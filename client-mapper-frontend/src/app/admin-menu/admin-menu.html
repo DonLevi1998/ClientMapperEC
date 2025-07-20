@@ -1,1 +1,10 @@
-<h2>Welcome to Admin interface</h2>
+<div class="admin-layout">
+  <aside class="sidebar">
+    <button routerLink="/admin-menu/users" routerLinkActive="active">Users</button>
+    <!-- <button routerLink="products" routerLinkActive="active">Products</button>
+    <button routerLink="category" routerLinkActive="active">Category</button> -->
+  </aside>
+  <main class="admin-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

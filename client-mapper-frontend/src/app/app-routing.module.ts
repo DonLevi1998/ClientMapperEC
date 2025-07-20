@@ -1,16 +1,10 @@
-import { Routes } from '@angular/router';
-
-import { Login } from './login/login';
-import { CreateUser } from './create-user/create-user';
-import { MainMenu } from './main-menu/main-menu';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 import { AdminMenu } from './admin-menu/admin-menu';
 import { UsersComponent } from './users/users.component';
 // Importa ProductsComponent y CategoryComponent cuando los crees
 
-export const routes: Routes = [
-  { path: 'login', component: Login },
-  { path: 'create-user', component: CreateUser },
-  { path: 'main-menu', component: MainMenu },
+const routes: Routes = [
   {
     path: 'admin-menu',
     component: AdminMenu,
@@ -21,5 +15,11 @@ export const routes: Routes = [
       { path: '', redirectTo: 'users', pathMatch: 'full' }
     ]
   },
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/admin-menu', pathMatch: 'full' }
 ];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
