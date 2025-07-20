@@ -36,3 +36,15 @@ export const LocalApiCategory = {
 
   ApiFindCategory: 'http://127.0.0.1:5022/users/',
 };
+
+export const LocalApiAuthService = {
+  production: false,
+  ApiLocalLogin: 'http://localhost:5030/login',
+
+  ApiLocalHash: 'http://localhost:5031/hash-password',
+
+  ApiLocalRol: 'http://localhost:5032/check-role',
+
+  ApiLocalToken: 'http://localhost:5032/me',
+
+};
