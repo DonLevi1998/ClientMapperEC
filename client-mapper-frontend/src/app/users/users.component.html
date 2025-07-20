@@ -1,0 +1,25 @@
+<h2>Usuarios</h2>
+<div *ngIf="loading">Cargando usuarios...</div>
+<div *ngIf="error">{{ error }}</div>
+<table *ngIf="!loading && users.length">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Email</th>
+      <th>Nombre</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{ user.idusers }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.nombre || user.name }}</td>
+      <td>
+        <!-- Aquí irán los botones de editar/eliminar -->
+        <button>Editar</button>
+        <button>Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
