@@ -1,4 +1,5 @@
 const mysql = require('mysql2/promise');
+const userModel = require('../models/userModel');
 
 const pool = mysql.createPool({
   host: process.env.DB_HOST,
@@ -8,7 +9,7 @@ const pool = mysql.createPool({
   port: process.env.DB_PORT,
 });
 
-exports.findByEmail = async (email) => {
+module.exports.findByEmail = async (email) => {
   const [rows] = await pool.execute('SELECT * FROM users WHERE email = ?', [email]);
   return rows[0];
 };

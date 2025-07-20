@@ -1,10 +1,22 @@
 const jwt = require('jsonwebtoken');
 const secret = process.env.JWT_SECRET || 'changeme';
 
-exports.generateToken = (payload) => {
-  return jwt.sign(payload, secret, { expiresIn: '1h' });
-};
+function generateToken(payload) {
+    return jwt.sign(payload, secret, { 
+        expiresIn: '1h'
+    });
+}
 
-exports.verifyToken = (token) => {
-  return jwt.verify(token, secret);
+function verifyToken(token) {
+    try {
+        return jwt.verify(token, secret);
+    } catch (error) {
+        console.error('Token verification failed:', error.message);
+        throw new Error('Invalid token');
+    }
+}
+
+module.exports = {
+    generateToken,
+    verifyToken
 };

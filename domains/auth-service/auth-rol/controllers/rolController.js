@@ -1,18 +1,21 @@
-const User = require('../models/userModel');
-/**
- * 
- * @param {string} userIdOrUsername 
- * @returns {Promise<number|null>} 
- */
-async function checkUserRole(userIdOrUsername) {
-    let user;
-    if (isNaN(userIdOrUsername)) {
-        user = await User.findByUsername(userIdOrUsername);
-    } else {
-        user = await User.findById(userIdOrUsername);
+const { findById } = require('../models/userModel');
+
+async function checkUserRole(userId) {
+    try {
+        console.log('Buscando usuario con ID:', userId);
+        const user = await findById(userId);
+        
+        if (!user) {
+            console.error('Usuario no encontrado con ID:', userId);
+            throw new Error('User not found');
+        }
+        
+        console.log('Usuario encontrado. Rol:', user.rol);
+        return user.rol;
+    } catch (error) {
+        console.error('Error en checkUserRole:', error);
+        throw error;
     }
-    if (!user) return null;
-    return user.rol;
 }
 
-module.exports = { checkUserRole };
+module.exports = { checkUserRole }; // Cambiado a CommonJS

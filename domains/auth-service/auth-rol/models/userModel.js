@@ -8,12 +8,24 @@ const pool = mysql.createPool({
   port: process.env.DB_PORT,
 });
 
+async function testConnection() {
+    try {
+        const [rows] = await pool.execute('SELECT 1 + 1 AS result');
+        console.log('Conexión a DB exitosa:', rows);
+    } catch (error) {
+        console.error('Error de conexión a DB:', error);
+        process.exit(1);
+    }
+}
+
+testConnection();
 exports.findByUsername = async (username) => {
   const [rows] = await pool.execute('SELECT * FROM users WHERE username = ?', [username]);
   return rows[0];
 };
 
 exports.findById = async (id) => {
-  const [rows] = await pool.execute('SELECT * FROM users WHERE id = ?', [id]);
-  return rows[0];
+    if (!id) throw new Error('ID is required');
+    const [rows] = await pool.execute('SELECT * FROM users WHERE idusers = ?', [id]);
+    return rows[0] || null;
 };
