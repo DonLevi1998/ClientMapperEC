@@ -1,4 +1,3 @@
-# Etapa 1: Build de la aplicación Angular
 FROM node:18 AS build
 WORKDIR /app
 COPY package*.json ./

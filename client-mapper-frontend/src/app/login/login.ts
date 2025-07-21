@@ -18,7 +18,7 @@ export class Login {
   constructor(private router: Router) {}
 
   async onSubmit(form: any) {
-    console.log('[1] Form submitted', { email: this.email, password: '***' }); // Log sin contraseña real
+    console.log('[1] Form submitted', { email: this.email, password: '***' });
 
     if (!this.email || !this.password) {
       this.errorMessage = 'All fields are required.';

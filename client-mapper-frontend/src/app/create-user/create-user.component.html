@@ -14,9 +14,9 @@
     <label for="confirmPassword">Confirm password</label>
     <input type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmPassword" required>
     <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+    <div class="button-group">
+      <button type="submit">Create Account</button>
+      <button type="button" class="secondary" (click)="goToLogin()">Go to Login</button>
+    </div>
   </form>
-  <div class="button-group">
-  <button type="submit">Create count</button>
-  <button type="button" class="secondary" (click)="goToLogin()">Go to Login</button>
-</div>
 </div>

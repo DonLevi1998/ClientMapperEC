@@ -6,9 +6,9 @@
     <label for="password">Password</label>
     <input type="password" id="password" name="password" [(ngModel)]="password" required>
     <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+    <div class="button-group">
+      <button type="submit">Login</button>
+      <button type="button" class="secondary" (click)="goToCreateUser()">Create count</button>
+    </div>
   </form>
-  <div class="button-group">
-  <button type="submit">Entrar</button>
-  <button type="button" class="secondary" (click)="goToCreateUser()">Crear cuenta</button>
-</div>
 </div>
