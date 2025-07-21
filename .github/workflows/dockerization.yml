@@ -1,0 +1,66 @@
+name: Registry image
+
+on:
+  push:
+    branches: ["QA"]
+
+jobs:
+  # USER DOMAIN CONTINOUS DEPLOYMENT
+  
+  login-push-usercreate:
+    
+    uses: ./.github/workflows/login-build-push.yml
+    secrets:
+      docker_password: ${{ secrets.DOCKER_PASSWORD }}
+      docker_username: ${{ secrets.DOCKER_USERNAME }}
+      repository_name: ${{ secrets.DOCKER_REPOSITORY_CREATEUSER }}
+      domain_name: ${{ secrets.USER_DOMAIN_NAME }}
+
+  login-push-userread:
+    
+    uses: ./.github/workflows/login-build-push.yml
+    secrets:
+      docker_password: ${{ secrets.DOCKER_PASSWORD }}
+      docker_username: ${{ secrets.DOCKER_USERNAME }}
+      repository_name: ${{ secrets.DOCKER_REPOSITORY_READUSER }}
+      domain_name: ${{ secrets.USER_DOMAIN_NAME }}
+
+  login-push-userupdate:
+    
+    if: contains(needs.detect-changes.outputs.modified_dirs, 'updateuser')
+    uses: ./.github/workflows/login-build-push.yml
+    secrets:
+      docker_password: ${{ secrets.DOCKER_PASSWORD }}
+      docker_username: ${{ secrets.DOCKER_USERNAME }}
+      repository_name: ${{ secrets.DOCKER_REPOSITORY_UPDATEUSER }}
+      domain_name: ${{ secrets.USER_DOMAIN_NAME }}
+
+  login-push-userdelete:
+    
+    if: contains(needs.detect-changes.outputs.modified_dirs, 'deleteuser')
+    uses: ./.github/workflows/login-build-push.yml
+    secrets:
+      docker_password: ${{ secrets.DOCKER_PASSWORD }}
+      docker_username: ${{ secrets.DOCKER_USERNAME }}
+      repository_name: ${{ secrets.DOCKER_REPOSITORY_DELETEUSER }}
+      domain_name: ${{ secrets.USER_DOMAIN_NAME }}
+
+  ec2-cd-userdomain:
+    needs: [login-push-usercreate, login-push-userread, login-push-userupdate,login-push-userdelete]
+    if: always()
+    uses: ./.github/workflows/setupDocker.yml
+    secrets:
+      ec2_host: ${{ secrets.EC2_HOST_USERDOMAIN }}
+      ec2_key: ${{ secrets.EC2_KEY_USERDOMAIN }}
+      docker_username: ${{ secrets.DOCKER_USERNAME }}
+      domain_name: ${{ secrets.USER_DOMAIN_NAME }}
+
+  
+    needs: [login-push-frontend]
+    if: always()
+    uses: ./.github/workflows/setupDocker.yml
+    secrets:
+      ec2_host: ${{ secrets.EC2_HOST_CLIENTDOMAIN }}
+      ec2_key: ${{ secrets.EC2_KEY_CLIENTDOMAIN }}
+      docker_username: ${{ secrets.DOCKER_USERNAME }}
+      domain_name: ${{ secrets.CLIENT_DOMAIN_NAME }}
