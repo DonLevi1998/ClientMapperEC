@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { LocalApiUsers } from '../../enviroments/enviroments';
 
 import { User } from '../create-user/user.interface';
+import { Product } from '../products/products.interface';
+import { LocalApiProducts } from '../../enviroments/enviroments';
 @Component({
   selector: 'app-admin-menu',
   standalone: true,
@@ -58,10 +60,10 @@ export class AdminMenu implements OnInit {
   if (!res.ok) throw new Error();
   await this.loadUsers();
   this.closeModal();
-  this.successMessage = 'Usuario creado exitosamente';
+  this.successMessage = 'User created successfully';
   setTimeout(() => this.successMessage = '', 3000);
   } catch {
-  this.errorMessage = 'Error creando usuario.';
+  this.errorMessage = 'Error creating user.';
   }
   }
 
@@ -74,10 +76,10 @@ export class AdminMenu implements OnInit {
       const res = await fetch(LocalApiUsers.ApiDeleteUser + id, { method: 'DELETE' });
       if (!res.ok) throw new Error();
       await this.loadUsers();
-      this.successMessage = 'Usuario eliminado exitosamente';
+      this.successMessage = 'User deleted successfully';
       setTimeout(() => this.successMessage = '', 3000);
     } catch {
-      this.errorMessage = 'Error eliminando usuario.';
+      this.errorMessage = 'Error deleting user.';
     }
   }
   openEditModal(user: User) {
@@ -109,14 +111,106 @@ closeEditModal() {
   if (!res.ok) throw new Error();
   await this.loadUsers();
   this.closeEditModal();
-  this.successMessage = 'Usuario actualizado exitosamente';
+  this.successMessage = 'User updated successfully';
   setTimeout(() => this.successMessage = '', 3000);
   } catch {
-  this.errorMessage = 'Error actualizando usuario.';
+  this.errorMessage = 'Error updating user.';
   }
   }
 
   cancelEdit() {
     this.editUserData = null;
+  }
+
+  // --- PRODUCTS ---
+  products: Product[] = [];
+  newProduct: Product = { name: '', description: '' };
+  editProductData: Product | null = null;
+  showProductModal = false;
+  showEditProductModal = false;
+
+  async loadProducts() {
+    try {
+      const res = await fetch(LocalApiProducts.ApiListProduct);
+      this.products = await res.json();
+    } catch {
+      this.errorMessage = 'Error loading products.';
+    }
+  }
+
+  openProductModal() {
+    this.showProductModal = true;
+    this.errorMessage = '';
+    this.newProduct = { name: '', description: '' };
+  }
+
+  closeProductModal() {
+    this.showProductModal = false;
+  }
+
+  async addProduct() {
+    try {
+      const res = await fetch(LocalApiProducts.ApiCreateProduct, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(this.newProduct)
+      });
+      if (!res.ok) throw new Error();
+      await this.loadProducts();
+      this.closeProductModal();
+      this.successMessage = 'Product created successfully';
+      setTimeout(() => this.successMessage = '', 3000);
+    } catch {
+      this.errorMessage = 'Error creating product.';
+    }
+  }
+
+  async deleteProduct(id: number | undefined) {
+    if (!id) {
+      this.errorMessage = '';
+      return;
+    }
+    try {
+      const res = await fetch(LocalApiProducts.ApiDeleteProduct + id, { method: 'DELETE' });
+      if (!res.ok) throw new Error();
+      await this.loadProducts();
+      this.successMessage = 'Product deleted successfully';
+      setTimeout(() => this.successMessage = '', 3000);
+    } catch {
+      this.errorMessage = 'Error deleting product.';
+    }
+  }
+
+  openEditProductModal(product: Product) {
+    this.editProductData = { ...product };
+    this.showEditProductModal = true;
+    this.errorMessage = '';
+    this.successMessage = '';
+  }
+
+  closeEditProductModal() {
+    this.showEditProductModal = false;
+    this.editProductData = null;
+  }
+
+  async updateProduct() {
+    if (!this.editProductData || !this.editProductData.id) {
+      this.errorMessage = '';
+      return;
+    }
+    try {
+      const res = await fetch(LocalApiProducts.ApiUpdateProduct + this.editProductData.id, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(this.editProductData)
+      });
+      if (!res.ok) throw new Error();
+      await this.loadProducts();
+      this.closeEditProductModal();
+      this.successMessage = 'Product updated successfully';
+      setTimeout(() => this.successMessage = '', 3000);
+    } catch {
+      this.errorMessage = 'Error updating product.';
+    }
   }
 }

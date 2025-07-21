@@ -10,7 +10,7 @@ const app = express();
 const PORT = 5003;
 
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: "http://localhost:4200",
   // origin: "http://54.147.184.127",
   credentials: true,
   methods: "GET,POST,PUT,DELETE",
