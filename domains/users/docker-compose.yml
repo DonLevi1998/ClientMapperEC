@@ -1,44 +1,24 @@
 services:
   users-create:
-    image: leviathan119/users-users-create:latest
-    build:
-      context: ./US-users-create
-      dockerfile: Dockerfile
+    image: leviathan119/create-user:latest
     ports:
       - "5020:5020"
-    env_file:
-      - ./US-users-create/.env
     restart: unless-stopped
 
   users-delete:
-    image: leviathan119/users-users-delete:latest
-    build:
-      context: ./US-users-delete
-      dockerfile: Dockerfile
+    image: leviathan119/delete-user:latest
     ports:
       - "5021:5021"
-    env_file:
-      - ./US-users-delete/.env
     restart: unless-stopped
 
   users-list-find:
-    image: leviathan119/users-users-list-find:latest
-    build:
-      context: ./US-users-list-find
-      dockerfile: Dockerfile
+    image: leviathan119/read-user:latest
     ports:
       - "5022:5022"
-    env_file:
-      - ./US-users-list-find/.env
     restart: unless-stopped
 
   users-update:
-    image: leviathan119/users-users-update:latest
-    build:
-      context: ./US-users-update
-      dockerfile: Dockerfile
+    image: leviathan119/update-user:latest
     ports:
       - "5023:5023"
-    env_file:
-      - ./US-users-update/.env
     restart: unless-stopped

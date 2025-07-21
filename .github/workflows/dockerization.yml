@@ -15,6 +15,7 @@ jobs:
       docker_username: ${{ secrets.DOCKER_USERNAME }}
       repository_name: ${{ secrets.DOCKER_REPOSITORY_CREATEUSER }}
       domain_name: ${{ secrets.USER_DOMAIN_NAME }}
+      microservice_name: ${{ secrets.USER_CREATE_MICRONAME }}
 
   login-push-userread:
     
@@ -24,38 +25,39 @@ jobs:
       docker_username: ${{ secrets.DOCKER_USERNAME }}
       repository_name: ${{ secrets.DOCKER_REPOSITORY_READUSER }}
       domain_name: ${{ secrets.USER_DOMAIN_NAME }}
+      microservice_name: ${{ secrets.USER_READ_MICRONAME }}
 
   login-push-userupdate:
-    
-    if: contains(needs.detect-changes.outputs.modified_dirs, 'updateuser')
+
     uses: ./.github/workflows/login-build-push.yml
     secrets:
       docker_password: ${{ secrets.DOCKER_PASSWORD }}
       docker_username: ${{ secrets.DOCKER_USERNAME }}
       repository_name: ${{ secrets.DOCKER_REPOSITORY_UPDATEUSER }}
       domain_name: ${{ secrets.USER_DOMAIN_NAME }}
+      microservice_name: ${{ secrets.USER_UPDATE_MICRONAME }}
 
   login-push-userdelete:
     
-    if: contains(needs.detect-changes.outputs.modified_dirs, 'deleteuser')
+
     uses: ./.github/workflows/login-build-push.yml
     secrets:
       docker_password: ${{ secrets.DOCKER_PASSWORD }}
       docker_username: ${{ secrets.DOCKER_USERNAME }}
       repository_name: ${{ secrets.DOCKER_REPOSITORY_DELETEUSER }}
       domain_name: ${{ secrets.USER_DOMAIN_NAME }}
+      microservice_name: ${{ secrets.USER_DELETE_MICRONAME }}
 
   ec2-cd-userdomain:
     needs: [login-push-usercreate, login-push-userread, login-push-userupdate,login-push-userdelete]
     if: always()
     uses: ./.github/workflows/setupDocker.yml
     secrets:
-      ec2_host: ${{ secrets.EC2_HOST_USERDOMAIN }}
-      ec2_key: ${{ secrets.EC2_KEY_USERDOMAIN }}
+      ec2_host: ${{ secrets.AWS_IP_USERS }}
+      ec2_key: ${{ secrets.AWS_USERS_PEM }}
       docker_username: ${{ secrets.DOCKER_USERNAME }}
       domain_name: ${{ secrets.USER_DOMAIN_NAME }}
 
-  
     needs: [login-push-frontend]
     if: always()
     uses: ./.github/workflows/setupDocker.yml

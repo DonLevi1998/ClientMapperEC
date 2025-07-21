@@ -11,6 +11,8 @@ on:
         required: true
       domain_name:
         required: true
+      microservice_name:
+        required: true
 jobs:
   build-image:
     runs-on: ubuntu-latest
@@ -25,7 +27,7 @@ jobs:
           password: ${{ secrets.docker_password }}
 
       - name: Build and push image
-        working-directory: ${{ secrets.domain_name }}/${{ secrets.repository_name }}
+        working-directory: ${{ secrets.domain_name }}/${{ secrets.microservice_name }}
         run: |
           docker build -t ${{ secrets.docker_username }}/${{ secrets.repository_name }}:latest .
           docker push ${{ secrets.docker_username }}/${{ secrets.repository_name }}:latest
