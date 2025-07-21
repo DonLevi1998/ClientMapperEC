@@ -1,40 +1,25 @@
 services:
-  auth-hash:
-    build:
-      context: ./auth-hash
-      dockerfile: Dockerfile
-    container_name: auth-hash
-    ports:
-      - "5031:5031"
-    env_file:
-      - ./auth-hash/.env
-
-  auth-login:
-    build:
-      context: ./auth-login
-      dockerfile: Dockerfile
-    container_name: auth-login
+  authlogin:
+    image: leviathan119/authlogin:latest
     ports:
       - "5030:5030"
-    env_file:
-      - ./auth-login/.env
+    restart: unless-stopped
 
-  auth-rol:
-    build:
-      context: ./auth-rol
-      dockerfile: Dockerfile
-    container_name: auth-rol
+  authrol:
+    image: leviathan119/authrol:latest
     ports:
       - "5032:5032"
-    env_file:
-      - ./auth-rol/.env
+    restart: unless-stopped
 
-  auth-token:
-    build:
-      context: ./auth-token
-      dockerfile: Dockerfile
-    container_name: auth-token
+  authhash:
+    image: leviathan119/authhash:latest
+    ports:
+      - "5031:5031"
+    restart: unless-stopped
+
+  authtoken:
+    image: leviathan119/authtoken:latest
     ports:
       - "5033:5033"
-    env_file:
-      - ./auth-token/.env
+    restart: unless-stopped
+
