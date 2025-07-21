@@ -1,59 +1,80 @@
-# ClientMapperFrontend
+# Client Mapper Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.5.
+This project is the frontend for the distributed system "Client Mapper". It is built with Angular and provides a modern, responsive web interface for user and product management.
 
-## Development server
+## Features
 
-To start a local development server, run:
+- **User Management:**
+  - List, create, edit, and delete users.
+  - Modal forms for user creation and editing.
+  - Success and error messages for all actions.
+- **Product Management:**
+  - List, create, edit, and delete products.
+  - Modal forms for product creation and editing.
+  - Success and error messages for all actions.
+- **Authentication:**
+  - Login form with role-based redirection (admin/main menu).
+  - Create user (registration) form.
+- **Responsive Design:**
+  - Modern UI with sidebar navigation and modals.
 
-```bash
-ng serve
-```
+## Architecture
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- **Framework:** Angular (standalone components, Angular 16+)
+- **Build & Serve:**
+  - Multi-stage Docker build (Node.js for build, Nginx for serving static files)
+  - Custom `nginx.conf` for SPA routing
 
-## Code scaffolding
+## External Services
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+This frontend interacts with several backend microservices via REST APIs:
 
-```bash
-ng generate component component-name
-```
+- **User Services:**
+  - Create, update, delete, list, and find users
+- **Product Services:**
+  - Create, update, delete, list, and find products
+- **Authentication Service:**
+  - Login and role verification
+- **Password Hash Service:**
+  - Password hashing for user registration
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+All API endpoints are configured in the `enviroments.ts` file for easy modification.
 
-```bash
-ng generate --help
-```
+## How to Run (Docker)
 
-## Building
+1. Build the Docker image:
+   ```sh
+   docker build -t client-mapper-frontend .
+   ```
+2. Run the container:
+   ```sh
+   docker run -p 8080:80 client-mapper-frontend
+   ```
+3. Access Local the app at [http://localhost:8080](http://localhost:8080)
 
-To build the project run:
+## Development
 
-```bash
-ng build
-```
+- Install dependencies:
+  ```sh
+  npm install
+  ```
+- Run locally:
+  ```sh
+  npm start
+  # or
+  ng serve
+  ```
+- The app will be available at [http://localhost:4200](http://localhost:4200)
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Project Structure
 
-## Running unit tests
+- `src/app/` - Angular components and logic
+- `src/enviroments/` - API endpoint configuration
+- `Dockerfile` - Multi-stage build and Nginx setup
+- `nginx.conf` - Nginx configuration for SPA
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## Notes
 
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- This frontend is designed to work with the full Client Mapper distributed backend system. Make sure all required backend services are running and accessible.
+- For API endpoints and ports, see `src/enviroments/enviroments.ts`.
+- For any issues or contributions, please open an issue or pull request.
