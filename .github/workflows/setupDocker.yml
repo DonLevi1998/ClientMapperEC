@@ -21,13 +21,13 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Create private key file
-      working-directory: ${{ secrets.domain_name }}
+      working-directory: ./domains/${{ secrets.domain_name }}
       run: |
         echo "${{ secrets.ec2_key }}" > private_key.pem
         chmod 600 private_key.pem
 
     - name: Copy docker-compose.yml to EC2 using SCP
-      working-directory: ${{ secrets.domain_name }}
+      working-directory: ./domains/${{ secrets.domain_name }}
       run: |
         scp -o StrictHostKeyChecking=no -i private_key.pem docker-compose.yml ubuntu@${{ secrets.ec2_host }}:/home/ubuntu/
 
